@@ -1,10 +1,9 @@
-
 var express     = require('express'),
     app         = express(),
     fs          = require('fs'),
     Handlebars  = require('handlebars'),
     React       = require('react'),
-    Router      = require('react-router'),
+    Router      = require('react-router').default,
     path        = require('path')
 ;
 

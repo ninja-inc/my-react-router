@@ -14,7 +14,8 @@ Router.run(routes, Router.HistoryLocation, function(Handler)  {
 },{"./routes":262,"react":261,"react-router":81}],2:[function(require,module,exports){
 'use strict';
 var React = require('react'),
-    $__0=   require('react-router'),Link=$__0.Link,RouteHandler=$__0.RouteHandler
+    $__0=   require('react-router'),ListGroup=$__0.ListGroup,ListGroupItem=$__0.ListGroupItem,
+    $__1=   require('react-router'),Link=$__1.Link,RouteHandler=$__1.RouteHandler
 ;
 
 var App = React.createClass({displayName: "App",
@@ -22,10 +23,10 @@ var App = React.createClass({displayName: "App",
     return (
       React.createElement("div", null, 
         React.createElement("h1", null, React.createElement(Link, {to: "app"}, "React server-side rendering sample")), 
-        React.createElement("div", null, 
-          React.createElement(Link, {to: "top", key: "top"}, React.createElement("div", null, "top")), 
-          React.createElement(Link, {to: "users", key: "users"}, React.createElement("div", null, "users"))
-        ), 
+        
+          React.createElement(Link, {to: "top", key: "top"}, "top"), 
+          React.createElement(Link, {to: "users", key: "users"}, "users"), 
+        
         React.createElement(RouteHandler, React.__spread({},  this.props))
       )
     );
