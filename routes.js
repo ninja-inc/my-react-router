@@ -8,20 +8,34 @@ var React = require('react'),
 ;
 
 //var history = createBrowserHistory();
+console.log("AAA:error start?");
+console.log("User:"+React.renderToString(React.createElement(User)));
+console.log("BBB:error start?");
+console.log("User:"+React.renderToString(<User />));
+
+
+console.log("CCC:error start?");
+console.log("App:"+React.renderToString(React.createElement(App)));
+console.log("DDD:error start?");
+console.log("App:"+React.renderToString(<App />));
+console.log("out of routes.js");
+
+
 console.log("out of routes.js");
 module.exports = function() {
   console.log("routes.js");
   return (
-    <Router>
       <Route path="/" component={App}>
         <Route path="/top" component={Top} />
         <Route path="/users" component={Users}>
           <Route path="/user" component={User}/>
         </Route>
       </Route>
-    </Router>
   );
 };
+
+//    <Router>
+//</Router>
 
 /*
 module.exports = function() {

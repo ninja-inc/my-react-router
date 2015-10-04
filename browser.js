@@ -7,7 +7,7 @@ var React = require('react'),
 
 var initialData = JSON.parse(document.getElementById('initial-data').getAttribute('data-json'));
 
-React.render(<Router /*history={BrowserHistory}*/>{routes}</Router>, el)
+React.render(<Router>{routes}</Router>, document.getElementById("app"));
 
 /*
 Router.run(routes, Router.HistoryLocation, (Handler) => {

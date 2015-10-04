@@ -27,7 +27,7 @@ var data = {
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-var routes = require('./routes');
+var routes = require('./routes')();
 var template = Handlebars.compile(fs.readFileSync('./index.hbs').toString());
 
 
@@ -35,22 +35,31 @@ app.use(function(req, res) {
   var location = createLocation(req.url);
 
   match({ routes, location }, (error, redirectLocation, renderProps) => {
-    /*
-    if (redirectLocation)
+    
+    if (redirectLocation) {
+      console.log("redirect");
       res.redirect(301, redirectLocation.pathname + redirectLocation.search)
-    else if (error)
+    }
+    else if (error){
+      console.log("error");
       res.send(500, error.message)
-    else if (renderProps == null)
+    }
+    else if (renderProps == null){
+      console.log("404");
       res.send(404, 'Not found')
-    else
-      */
+    }
+    else {
 //var element = React.createElement(RoutingContext);
-
+console.log(renderProps);
+console.log(JSON.stringify(renderProps));
+console.log("element:"+React.renderToString(<RoutingContext {...renderProps}/>));
+console.log("done");
       res.send(template({
         initialData: JSON.stringify(data),
         markup: React.renderToString(<RoutingContext {...renderProps}/>)
         //markup: React.renderToString(React.renderToString(element))
       }));
+    }
   })
 }
 )
