@@ -2,15 +2,32 @@
 'use strict';
 var React = require('react'),
 	ReactDOM = require('react-dom'),
-    Router = require('react-router'),
-    routes = require('./routes')(),
+    //Router = require('react-router'),
+
+    $__0=    require('react-router'),Router=$__0.Router,Route=$__0.Route,DefaultRoute=$__0.DefaultRoute,
+    App = require('./component/app'),
+    Top = require('./component/top'),
+    Users = require('./component/users'),
+
+    //routes = require('./routes')(),
+    routes = require('./routes'),
     createBrowserHistory = require('history/lib/createBrowserHistory')
 ;
 
 var initialData = JSON.parse(document.getElementById('initial-data').getAttribute('data-json'));
-var history = createBrowserHistory();
 
-ReactDOM.render(React.createElement(Router, {history: history}, routes), document.getElementById("app"));
+//ReactDOM.render(<Router history={createHistory()}>{routes}</Router>, document.getElementById("app"));
+//ReactDOM.render(<Router routes={routes}/>, document.getElementById("app"));
+
+ReactDOM.render(
+	React.createElement(Router, {history: createBrowserHistory()}, 
+		React.createElement(Route, {path: "/", component: App}, 
+        	React.createElement(Route, {path: "top", component: Top}), 
+        	React.createElement(Route, {path: "users", component: Users})
+      	)
+    )
+, document.getElementById("app"));
+
 
 /*
 Router.run(routes, Router.HistoryLocation, (Handler) => {
@@ -19,7 +36,7 @@ Router.run(routes, Router.HistoryLocation, (Handler) => {
 */
 
 
-},{"./routes":463,"history/lib/createBrowserHistory":11,"react":462,"react-dom":261,"react-router":281}],2:[function(require,module,exports){
+},{"./component/app":2,"./component/top":3,"./component/users":4,"./routes":463,"history/lib/createBrowserHistory":11,"react":462,"react-dom":261,"react-router":281}],2:[function(require,module,exports){
 'use strict';
 var React = require('react'),
     ReactDOM = require('react-dom'),

@@ -8,6 +8,7 @@ var express     = require('express'),
     path        = require('path'),
 
     createLocation = require('history/lib/createLocation'),
+    createHistory = require('history'),
     { RoutingContext, match }= require('react-router')
 
 ;
