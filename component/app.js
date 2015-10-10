@@ -1,13 +1,16 @@
 'use strict';
-var React = require('react')
-    //{Link, RouteHandler} = require('react-router')
+var React = require('react'),
+    {Link, RouteHandler} = require('react-router')
 ;
 
 var App = React.createClass({
   render() {
     return (
       <div>
-        i am app
+        i am app<br/>
+        <li><Link to="/top">top</Link></li>
+        <li><Link to="/users">users</Link></li>
+        {this.props.children}
       </div>
     );
   }

@@ -26,13 +26,16 @@ module.exports = function() {
   console.log("routes.js");
   return (
       <Route path="/" component={App}>
-        <Route path="/top" component={Top} />
-        <Route path="/users" component={Users}>
-          <Route path="/user" component={User}/>
-        </Route>
+        <Route path="top" component={Top} />
+        <Route path="users" component={Users} />
       </Route>
   );
 };
+
+/*
+          <Route path="/user" component={User}/>
+        </Route>
+*/
 
 //    <Router>
 //</Router>
