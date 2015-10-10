@@ -1,5 +1,6 @@
 'use strict';
 var React = require('react'),
+    ReactDOM = require('react-dom'),
     {Link, RouteHandler} = require('react-router')
 ;
 

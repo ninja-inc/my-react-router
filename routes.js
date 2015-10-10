@@ -1,27 +1,11 @@
 var React = require('react'),
+    ReactDOM = require('react-dom'),
     {Router, Route, DefaultRoute} = require('react-router'),
-    //{createHistory, useBasename} = require('history'),
     App = require('./component/app'),
     Top = require('./component/top'),
-    Users = require('./component/users'),
-    User = require('./component/user')
+    Users = require('./component/users')
 ;
 
-//var history = createBrowserHistory();
-console.log("AAA:error start?");
-console.log("User:"+React.renderToString(React.createElement(User)));
-console.log("BBB:error start?");
-console.log("User:"+React.renderToString(<User />));
-
-
-console.log("CCC:error start?");
-console.log("App:"+React.renderToString(React.createElement(App)));
-console.log("DDD:error start?");
-console.log("App:"+React.renderToString(<App />));
-console.log("out of routes.js");
-
-
-console.log("out of routes.js");
 module.exports = function() {
   console.log("routes.js");
   return (

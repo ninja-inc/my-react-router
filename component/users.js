@@ -1,6 +1,6 @@
 'use strict';
 var React = require('react'),
-	//UserMixin = require('../mixin/user-mixin'),
+    ReactDOM = require('react-dom'),
 	{Link, RouteHandler} = require('react-router')
 ;
 

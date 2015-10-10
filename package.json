@@ -14,16 +14,15 @@
     "morgan": "~1.5.3",
     "serve-favicon": "~2.2.1",
 
-    "react-bootstrap": "^0.25.2",
     "handlebars": "^2.0.0",
 
-    "node-jsx": "^0.12.4",
-    "react": "^0.13.3",
-    "react-async": "^2.0.1",
+    "node-jsx": "^0.13.3",
+    "react": "^0.14",
     "react-router": "1.0.0-rc3",
-    "history": "1.11.1",
+    "react-bootstrap": "^0.27",
+    "history": "^1.12",
 
-    "reactify": "^0.17.1"
+    "reactify": "^1.1.1"
   },
   "devDependencies": {
     "browserify": "^7.0.3",

@@ -3,16 +3,14 @@ var express     = require('express'),
     app         = express(),
     fs          = require('fs'),
     Handlebars  = require('handlebars'),
-    React       = require('react'),
-    //Router      = require('react-router').Router,
+    React          = require('react'),
+    ReactDOMServer = require('react-dom/server'),
     path        = require('path'),
-    reactAsync  = require('react-async'),
 
     createLocation = require('history/lib/createLocation'),
     { RoutingContext, match }= require('react-router')
 
 ;
-
 
 
 var data = {
@@ -49,45 +47,11 @@ app.use(function(req, res) {
       res.send(404, 'Not found')
     }
     else {
-//var element = React.createElement(RoutingContext);
-console.log(renderProps);
-console.log(JSON.stringify(renderProps));
-console.log("element:"+React.renderToString(<RoutingContext {...renderProps}/>));
-console.log("done");
       res.send(template({
         initialData: JSON.stringify(data),
-        markup: React.renderToString(<RoutingContext {...renderProps}/>)
-        //markup: React.renderToString(React.renderToString(element))
+        markup: ReactDOMServer.renderToString(<RoutingContext {...renderProps}/>)
       }));
     }
   })
-}
-)
-
-
-/*
-app.use(function(req, res) {
-
-    var element = React.createElement(Router, null, routes);
-    console.log("element:"+JSON.stringify(element));
-
-    var hoge = React.renderToString(element);
-    console.log("hoge:"+JSON.stringify(hoge));
-
-    res.send(template({
-      initialData: JSON.stringify(data),
-      markup: hoge
-    }));
-});
-*/
-  /*
-  Router.run(routes, req.path, function(Handler) {
-    res.send(template({
-      initialData: JSON.stringify(data),
-      markup: React.renderToString(React.createElement(Handler, {params: {users: data}}))
-    }));
-  });
-  */
-
-
+})
 module.exports = app;
