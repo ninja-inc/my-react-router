@@ -72,14 +72,43 @@ module.exports = App;
 'use strict';
 var React = require('react'),
     ReactDOM = require('react-dom'),
-    $__0=   require('react-bootstrap'),Tabs=$__0.Tabs,Tab=$__0.Tab
+    $__0=   require('react-bootstrap'),Tabs=$__0.Tabs,Tab=$__0.Tab,
+    $__1=   require('react-bootstrap'),ButtonToolbar=$__1.ButtonToolbar,Button=$__1.Button
 ;
 
 var Top = React.createClass({displayName: "Top",
+  getInitialState:function() {
+    return {
+      isActive1 : false,
+      isActive2 : false,
+      isActive3 : false
+    };
+  },
+
   render:function() {
+    let isActive1 = this.state.isActive1;
+    let isActive2 = this.state.isActive2;
+    let isActive3 = this.state.isActive3;
+
     return (
-      React.createElement("div", null, "i am top")
+      React.createElement(ButtonToolbar, null, 
+        React.createElement(Button, {bsStyle: "default", bsSize: "xsmall", active: isActive1, onClick: this.clickButton1, onfocus: "this.blur();"}, "KAWASAKI"), 
+        React.createElement(Button, {bsStyle: "default", bsSize: "xsmall", active: isActive2, onClick: this.clickButton2, onfocus: "this.blur();"}, "HONDA"), 
+        React.createElement(Button, {bsStyle: "default", bsSize: "xsmall", active: isActive3, onClick: this.clickButton3, onfocus: "this.blur();"}, "ヤマハ")
+      )
     );
+  },
+
+  clickButton1:function() {
+    this.setState({isActive1 : !this.state.isActive1})
+  },
+
+  clickButton2:function() {
+    this.setState({isActive2 : !this.state.isActive2})
+  },
+
+  clickButton3:function() {
+    this.setState({isActive3 : !this.state.isActive3})
   }
 });
 
