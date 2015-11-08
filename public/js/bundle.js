@@ -92,23 +92,26 @@ var Top = React.createClass({displayName: "Top",
 
     return (
       React.createElement(ButtonToolbar, null, 
-        React.createElement(Button, {bsStyle: "default", bsSize: "xsmall", active: isActive1, onClick: this.clickButton1, onfocus: "this.blur();"}, "KAWASAKI"), 
-        React.createElement(Button, {bsStyle: "default", bsSize: "xsmall", active: isActive2, onClick: this.clickButton2, onfocus: "this.blur();"}, "HONDA"), 
-        React.createElement(Button, {bsStyle: "default", bsSize: "xsmall", active: isActive3, onClick: this.clickButton3, onfocus: "this.blur();"}, "ヤマハ")
+        React.createElement(Button, {ref: "KAWASAKI", bsStyle: "default", bsSize: "xsmall", active: isActive1, onClick: this.clickButton1}, "KAWASAKI"), 
+        React.createElement(Button, {ref: "HONDA", bsStyle: "default", bsSize: "xsmall", active: isActive2, onClick: this.clickButton2}, "HONDA"), 
+        React.createElement(Button, {ref: "YAMAHA", bsStyle: "default", bsSize: "xsmall", active: isActive3, onClick: this.clickButton3}, "YAMAHA")
       )
     );
   },
 
   clickButton1:function() {
     this.setState({isActive1 : !this.state.isActive1})
+    ReactDOM.findDOMNode(this.refs.KAWASAKI).blur()
   },
 
   clickButton2:function() {
     this.setState({isActive2 : !this.state.isActive2})
+    ReactDOM.findDOMNode(this.refs.HONDA).blur()
   },
 
   clickButton3:function() {
     this.setState({isActive3 : !this.state.isActive3})
+    ReactDOM.findDOMNode(this.refs.YAMAHA).blur()
   }
 });
 

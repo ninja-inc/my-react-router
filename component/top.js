@@ -21,23 +21,26 @@ var Top = React.createClass({
 
     return (
       <ButtonToolbar>
-        <Button bsStyle="default" bsSize="xsmall" active={isActive1} onClick={this.clickButton1} onfocus="this.blur();">KAWASAKI</Button>
-        <Button bsStyle="default" bsSize="xsmall" active={isActive2} onClick={this.clickButton2} onfocus="this.blur();">HONDA</Button>
-        <Button bsStyle="default" bsSize="xsmall" active={isActive3} onClick={this.clickButton3} onfocus="this.blur();">ヤマハ</Button>
+        <Button ref="KAWASAKI" bsStyle="default" bsSize="xsmall" active={isActive1} onClick={this.clickButton1}>KAWASAKI</Button>
+        <Button ref="HONDA" bsStyle="default" bsSize="xsmall" active={isActive2} onClick={this.clickButton2}>HONDA</Button>
+        <Button ref="YAMAHA" bsStyle="default" bsSize="xsmall" active={isActive3} onClick={this.clickButton3}>YAMAHA</Button>
       </ButtonToolbar>
     );
   },
 
   clickButton1() {
     this.setState({isActive1 : !this.state.isActive1})
+    ReactDOM.findDOMNode(this.refs.KAWASAKI).blur()
   },
 
   clickButton2() {
     this.setState({isActive2 : !this.state.isActive2})
+    ReactDOM.findDOMNode(this.refs.HONDA).blur()
   },
 
   clickButton3() {
     this.setState({isActive3 : !this.state.isActive3})
+    ReactDOM.findDOMNode(this.refs.YAMAHA).blur()
   }
 });
 
