@@ -3,7 +3,8 @@
 /**
  * Module dependencies.
  */
-require('node-jsx').install({ harmony: true });
+//require('node-jsx').install({ harmony: true });
+require('node-jsx-babel').install()
 
 var app = require('../app');
 var debug = require('debug')('my-react-router:server');
