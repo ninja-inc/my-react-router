@@ -106,6 +106,12 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _reactBootstrap = require('react-bootstrap');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -120,17 +126,33 @@ var SearchButton = (function (_React$Component) {
 	function SearchButton() {
 		_classCallCheck(this, SearchButton);
 
-		return _possibleConstructorReturn(this, Object.getPrototypeOf(SearchButton).apply(this, arguments));
+		var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SearchButton).call(this));
+
+		_this.state = {
+			isActive: false
+		};
+		_this.clickButton = _this.clickButton.bind(_this);
+		return _this;
 	}
 
 	_createClass(SearchButton, [{
 		key: 'render',
 		value: function render() {
 			return _react2.default.createElement(
-				'div',
-				null,
-				'aaa'
+				_reactBootstrap.Button,
+				{ ref: this.props.name,
+					bsStyle: 'default',
+					bsSize: 'xsmall',
+					active: this.state.isActive,
+					onClick: this.clickButton },
+				this.props.name
 			);
+		}
+	}, {
+		key: 'clickButton',
+		value: function clickButton() {
+			this.setState({ isActive: !this.state.isActive });
+			_reactDom2.default.findDOMNode(this).blur();
 		}
 	}]);
 
@@ -138,9 +160,12 @@ var SearchButton = (function (_React$Component) {
 })(_react2.default.Component);
 
 exports.default = SearchButton;
-;
 
-},{"react":465}],4:[function(require,module,exports){
+SearchButton.propTypes = {
+	name: _react2.default.PropTypes.string.isRequired
+};
+
+},{"react":465,"react-bootstrap":95,"react-dom":263}],4:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -221,6 +246,8 @@ var _searchButton = require('./searchButton');
 
 var _searchButton2 = _interopRequireDefault(_searchButton);
 
+var _reactBootstrap = require('react-bootstrap');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var React = require('react');
@@ -236,13 +263,17 @@ var Users = React.createClass({
 
   //mixins: [UserMixin],
   render: function render() {
-    return React.createElement(_searchButton2.default, null);
+    return React.createElement(
+      _reactBootstrap.ButtonToolbar,
+      null,
+      React.createElement(_searchButton2.default, { name: 'MyName' })
+    );
   }
 });
 
 module.exports = Users;
 
-},{"./searchButton":3,"react":465,"react-dom":263,"react-router":283}],6:[function(require,module,exports){
+},{"./searchButton":3,"react":465,"react-bootstrap":95,"react-dom":263,"react-router":283}],6:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};

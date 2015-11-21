@@ -13,7 +13,7 @@ var Top = React.createClass({
       isActive3 : false
     };
   },
-
+  
   render() {
     let isActive1 = this.state.isActive1;
     let isActive2 = this.state.isActive2;

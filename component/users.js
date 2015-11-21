@@ -4,12 +4,15 @@ var React = require('react'),
   	{Link, RouteHandler} = require('react-router');
 
 import SearchButton from './searchButton'
+import {ButtonToolbar} from 'react-bootstrap'
 
 var Users = React.createClass({
   //mixins: [UserMixin],
   render() {
     return (
-      <SearchButton/>
+      <ButtonToolbar>
+        <SearchButton name="MyName"/>
+      </ButtonToolbar>
     );
   }
 });
