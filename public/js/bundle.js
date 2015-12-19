@@ -168,6 +168,7 @@ var ButtonApiCaller = (function (_React$Component) {
 			middleOptions: [{ name: "chose above" }]
 		};
 		_this.setMiddleOptions = _this.setMiddleOptions.bind(_this);
+		_this.submitForm = _this.submitForm.bind(_this);
 		return _this;
 	}
 
@@ -183,6 +184,7 @@ var ButtonApiCaller = (function (_React$Component) {
 					_reactBootstrap.Input,
 					{ type: 'select',
 						label: 'SelectLarge',
+						ref: 'SelectLarge',
 						placeholder: 'select',
 						onChange: this.setMiddleOptions,
 						value: this.state.defaultLargeIndex },
@@ -197,9 +199,15 @@ var ButtonApiCaller = (function (_React$Component) {
 					_reactBootstrap.Input,
 					{ type: 'select',
 						label: 'SelectMiddle',
+						ref: 'SelectMiddle',
 						placeholder: 'select',
 						disabled: this.state.isDisabledMiddle },
 					this.renderOptions(this.state.middleOptions)
+				),
+				_react2.default.createElement(
+					_reactBootstrap.Button,
+					{ onClick: this.submitForm },
+					'submit'
 				)
 			);
 		}
@@ -215,20 +223,42 @@ var ButtonApiCaller = (function (_React$Component) {
 			});
 		}
 	}, {
+		key: 'submitForm',
+		value: function submitForm(value) {
+			console.log(value);
+			console.log(value.target.form.elements[0].options);
+			var hoge1 = _underscore2.default.find(value.target.form.elements[0].options, function (optionItem) {
+				return optionItem.selected;
+			}).value;
+			//let hoge1 = _.chain(value.target.form.elements[0].options)
+			//							.filter(e => e.selected)
+			//							.map(e => e.value)
+			//							.value();
+			//let hoge1 = this.refs.SelectLarge.props.value[0];
+			var hoge2 = _underscore2.default.find(value.target.form.elements[1].options, function (optionItem) {
+				return optionItem.selected;
+			}).value;
+
+			console.log(hoge1);
+			console.log(hoge2);
+		}
+	}, {
 		key: 'setMiddleOptions',
 		value: function setMiddleOptions(e) {
-			console.log(e.target.options.length);
-			var selectedValueName = _underscore2.default.chain(e.target.options).filter(function (e) {
-				return e.selected;
-			}).map(function (e) {
-				return e.value;
-			}).value();
-			console.log(selectedValueName);
+			//console.log(e.target.options.length);
+			//let selectedValueName = _.chain(e.target.options)
+			//							.filter(e => e.selected)
+			//							.map(e => e.value)
+			//							.value();
+			var selectedValueName = _underscore2.default.find(e.target.options, function (optionItem) {
+				return optionItem.selected;
+			}).value;
+			//console.log(selectedValueName);
 			var middleOptions = _underscore2.default.find(this.props.optionItems, function (optionItem) {
 				return optionItem.name == selectedValueName;
 			});
-			console.log(middleOptions);
-			console.log(middleOptions.middleNames);
+			//console.log(middleOptions);
+			//console.log(middleOptions.middleNames);
 			this.setState({ middleOptions: middleOptions.middleNames });
 			this.setState({ isDisabledMiddle: false, defaultLargeIndex: selectedValueName });
 		}
