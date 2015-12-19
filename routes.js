@@ -6,15 +6,20 @@ var React = require('react'),
     Users = require('./component/users')
 ;
 
+import DividerThumbnail from './component/dividerThumbnail'
+
 module.exports = function() {
   console.log("routes.js");
   return (
       <Route path="/" component={App}>
         <Route path="top" component={Top} />
         <Route path="users" component={Users} />
+        <Route path="dviderThumbnail" component={DividerThumbnail} />
       </Route>
   );
 };
+
+
 
 /*
           <Route path="/user" component={User}/>

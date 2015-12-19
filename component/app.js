@@ -11,6 +11,7 @@ var App = React.createClass({
         i am app<br/>
         <li><Link to="/top">top</Link></li>
         <li><Link to="/users">users</Link></li>
+        <li><Link to="/dviderThumbnail">dviderThumbnail</Link></li>
         {this.props.children}
       </div>
     );

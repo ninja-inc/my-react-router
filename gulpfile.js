@@ -29,8 +29,12 @@ gulp.task('browserify', function(){
     .pipe(gulp.dest('./public/js'));
 });
 
+gulp.task('watch', function() {
+  gulp.watch('./*/*.js', ['cleanPublic', 'browserify'])
+});
+
 // this module is like a main method of Java, so it is needed.
 // write TODO task names.
 gulp.task('default', function() {
-  return runSequence('cleanPublic', 'browserify');
+  return runSequence('cleanPublic', 'watch', 'browserify');
 })

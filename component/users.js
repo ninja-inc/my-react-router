@@ -12,6 +12,7 @@ var Users = React.createClass({
     return (
       <ButtonToolbar>
         <SearchButton name="MyName"/>
+        <SearchButton name="HogeHoge"/>
       </ButtonToolbar>
     );
   }

@@ -15,6 +15,8 @@ var React = require('react'),
 
 var initialData = JSON.parse(document.getElementById('initial-data').getAttribute('data-json'));
 
+import DividerThumbnail from './component/dividerThumbnail'
+
 //ReactDOM.render(<Router history={createHistory()}>{routes}</Router>, document.getElementById("app"));
 //ReactDOM.render(<Router routes={routes}/>, document.getElementById("app"));
 
@@ -23,6 +25,7 @@ ReactDOM.render(
 		<Route path="/" component={App}>
         	<Route path="top" component={Top} />
         	<Route path="users" component={Users} />
+            <Route path="dviderThumbnail" component={DividerThumbnail} />
       	</Route>
     </Router>
 , document.getElementById("app"));

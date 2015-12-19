@@ -7,7 +7,7 @@ export default class SearchButton extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			isActive : false
+			isActive: false
 		}
 		this.clickButton = this.clickButton.bind(this);
 	}
@@ -23,7 +23,7 @@ export default class SearchButton extends React.Component {
 		);
 	}
 	clickButton() {
-		this.setState({isActive : !this.state.isActive});
+		this.setState({isActive: !this.state.isActive});
 		ReactDOM.findDOMNode(this).blur();
 	}
 }
