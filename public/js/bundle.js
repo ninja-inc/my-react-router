@@ -163,8 +163,9 @@ var ButtonApiCaller = (function (_React$Component) {
 		var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ButtonApiCaller).call(this, props));
 
 		_this.state = {
+			defaultLargeIndex: "0",
 			isDisabledMiddle: true,
-			middleOptions: [{ name: "---" }]
+			middleOptions: [{ name: "chose above" }]
 		};
 		_this.setMiddleOptions = _this.setMiddleOptions.bind(_this);
 		return _this;
@@ -183,8 +184,14 @@ var ButtonApiCaller = (function (_React$Component) {
 					{ type: 'select',
 						label: 'SelectLarge',
 						placeholder: 'select',
-						onChange: this.setMiddleOptions },
-					this.renderLargeOptions(optionItems)
+						onChange: this.setMiddleOptions,
+						value: this.state.defaultLargeIndex },
+					_react2.default.createElement(
+						'option',
+						{ value: '0', disabled: true },
+						'chose one'
+					),
+					this.renderOptions(optionItems)
 				),
 				_react2.default.createElement(
 					_reactBootstrap.Input,
@@ -192,24 +199,13 @@ var ButtonApiCaller = (function (_React$Component) {
 						label: 'SelectMiddle',
 						placeholder: 'select',
 						disabled: this.state.isDisabledMiddle },
-					this.renderMiddleOptions(this.state.middleOptions)
+					this.renderOptions(this.state.middleOptions)
 				)
 			);
 		}
 	}, {
-		key: 'renderLargeOptions',
-		value: function renderLargeOptions(optionItems) {
-			return optionItems.map(function (optionItem) {
-				return _react2.default.createElement(
-					'option',
-					{ value: optionItem.largeName, key: optionItem.largeName },
-					optionItem.largeName
-				);
-			});
-		}
-	}, {
-		key: 'renderMiddleOptions',
-		value: function renderMiddleOptions(optionElements) {
+		key: 'renderOptions',
+		value: function renderOptions(optionElements) {
 			return optionElements.map(function (optionElement) {
 				return _react2.default.createElement(
 					'option',
@@ -229,12 +225,12 @@ var ButtonApiCaller = (function (_React$Component) {
 			}).value();
 			console.log(selectedValueName);
 			var middleOptions = _underscore2.default.find(this.props.optionItems, function (optionItem) {
-				return optionItem.largeName == selectedValueName;
+				return optionItem.name == selectedValueName;
 			});
 			console.log(middleOptions);
 			console.log(middleOptions.middleNames);
 			this.setState({ middleOptions: middleOptions.middleNames });
-			this.setState({ isDisabledMiddle: false });
+			this.setState({ isDisabledMiddle: false, defaultLargeIndex: selectedValueName });
 		}
 	}]);
 
@@ -245,10 +241,10 @@ exports.default = ButtonApiCaller;
 
 ButtonApiCaller.defaultProps = {
 	optionItems: [{
-		largeName: "A",
+		name: "A",
 		middleNames: [{ name: "a" }, { name: "b" }]
 	}, {
-		largeName: "B",
+		name: "B",
 		middleNames: [{ name: "c" }, { name: "d" }]
 	}]
 };

@@ -8,8 +8,9 @@ export default class ButtonApiCaller extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			defaultLargeIndex: "0",
 			isDisabledMiddle: true,
-			middleOptions: [{name: "---"}]
+			middleOptions: [{name: "chose above"}]
 		}
 		this.setMiddleOptions = this.setMiddleOptions.bind(this);
 	}
@@ -21,28 +22,21 @@ export default class ButtonApiCaller extends React.Component {
 			    <Input type="select"
 			    	label="SelectLarge"
 			    	placeholder="select"
-			    	onChange={this.setMiddleOptions}>
-			      {this.renderLargeOptions(optionItems)}
+			    	onChange={this.setMiddleOptions}
+			    	value={this.state.defaultLargeIndex}>
+			    	  <option value="0" disabled>chose one</option>
+			    	  {this.renderOptions(optionItems)}
 			    </Input>
 			    <Input type="select"
 			    	label="SelectMiddle"
 			    	placeholder="select"
 			    	disabled={this.state.isDisabledMiddle}>
-			      {this.renderMiddleOptions(this.state.middleOptions)}
+			      {this.renderOptions(this.state.middleOptions)}
 			    </Input>
 			</form>
 		);
 	}
-	renderLargeOptions(optionItems) {
-		return optionItems.map(optionItem => {
-			return (
-				<option value={optionItem.largeName} key={optionItem.largeName}>
-					{optionItem.largeName}
-				</option>
-			);
-		});
-	}
-	renderMiddleOptions(optionElements) {
+	renderOptions(optionElements) {
 		return optionElements.map(optionElement => {
 			return (
 				<option value={optionElement.name} key={optionElement.name}>
@@ -58,24 +52,24 @@ export default class ButtonApiCaller extends React.Component {
 									.map(e => e.value)
 									.value();
 		console.log(selectedValueName);
-		let middleOptions = _.find(this.props.optionItems, optionItem => optionItem.largeName == selectedValueName);
+		let middleOptions = _.find(this.props.optionItems, optionItem => optionItem.name == selectedValueName);
 		console.log(middleOptions);
 		console.log(middleOptions.middleNames);
 		this.setState({middleOptions: middleOptions.middleNames});
-		this.setState({isDisabledMiddle: false});
+		this.setState({isDisabledMiddle: false, defaultLargeIndex: selectedValueName});
 	}
 }
 ButtonApiCaller.defaultProps = {
 	optionItems: [
 		{
-			largeName: "A",
+			name: "A",
 			middleNames: [
 				{name: "a"},
 				{name: "b"}
 			]
 		},
 		{
-			largeName: "B",
+			name: "B",
 			middleNames: [
 				{name: "c"},
 				{name: "d"}
