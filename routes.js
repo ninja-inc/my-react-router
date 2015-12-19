@@ -7,6 +7,8 @@ var React = require('react'),
 ;
 
 import DividerThumbnail from './component/dividerThumbnail'
+import ButtonApiCaller from './component/buttonApiCaller'
+
 
 module.exports = function() {
   console.log("routes.js");
@@ -15,6 +17,7 @@ module.exports = function() {
         <Route path="top" component={Top} />
         <Route path="users" component={Users} />
         <Route path="dviderThumbnail" component={DividerThumbnail} />
+        <Route path="buttonApiCaller" component={ButtonApiCaller} />
       </Route>
   );
 };

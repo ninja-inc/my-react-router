@@ -9,8 +9,7 @@ var express     = require('express'),
 
     createLocation = require('history/lib/createLocation'),
     createHistory = require('history'),
-    { RoutingContext, match }= require('react-router')
-
+    {RoutingContext, match} = require('react-router')
 ;
 
 

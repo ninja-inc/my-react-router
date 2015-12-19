@@ -4,7 +4,9 @@
  * Module dependencies.
  */
 //require('node-jsx').install({ harmony: true });
-require('node-jsx-babel').install()
+//require('node-jsx-babel').install();
+//require("babel-register");
+require('babel-register')({presets: ["es2015", "react"]});
 
 var app = require('../app');
 var debug = require('debug')('my-react-router:server');
