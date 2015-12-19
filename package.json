@@ -17,7 +17,7 @@
     "handlebars": "^2.0.0",
 
     "underscore": "1.8.3",
-
+    "jquery": "2.1.4",
     "react": "^0.14",
     "react-router": "1.0.0-rc3",
     "react-bootstrap": "^0.27",

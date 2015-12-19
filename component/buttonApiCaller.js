@@ -3,6 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import {Input, Button} from 'react-bootstrap'
 import _ from 'underscore'
+import $ from 'jquery'
 
 export default class ButtonApiCaller extends React.Component {
 	constructor(props) {
@@ -62,6 +63,15 @@ export default class ButtonApiCaller extends React.Component {
 
 		console.log(hoge1);
 		console.log(hoge2);
+
+		$.ajax({
+			url: "http://localhost:8080/tam2/attendance",
+			dataType: 'jsonp',
+			type: "GET",
+			success: res => {
+				console.log(JSON.stringify(res));
+			}
+		});
 	}
 	setMiddleOptions(e) {
 		//console.log(e.target.options.length);
