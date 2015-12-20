@@ -47,10 +47,22 @@ export default class ButtonApiCaller extends React.Component {
 			    </Input>
 			    <Button onClick={this.submitForm}>submit</Button>
 
-			    <AttendanceList attendances={this.state.attendances} isLoading={this.state.isLoading} />
+			    <AttendanceList
+			    	attendances={this.state.attendances}
+			    	isLoading={this.state.isLoading}
+			    	changeEditMode={this.changeEditMode}
+			    	parentThis={this} />
 			</form>
 		);
 	}
+	changeEditMode(attendance, index) {
+		console.log(JSON.stringify(attendance));
+
+		let tmpAttendances = this.state.attendances;
+		tmpAttendances[index].isEditable = !tmpAttendances[index].isEditable;
+		this.setState({attendances: tmpAttendances});
+	}
+
 	componentDidMount() {
 		// componentWillMount does not work due to $.ajax
 		this.setAttendanceList();

@@ -93,10 +93,10 @@ var AttendanceList = (function (_React$Component) {
     key: 'render',
     value: function render() {
       var attendances = this.props.attendances;
-      var parent = { position: "relative" };
+      var parentStyle = { position: "relative" };
       return _react2.default.createElement(
         _reactBootstrap.Grid,
-        { style: parent },
+        { style: parentStyle },
         _react2.default.createElement(
           _reactBootstrap.Row,
           null,
@@ -108,7 +108,11 @@ var AttendanceList = (function (_React$Component) {
   }, {
     key: 'renderAttendances',
     value: function renderAttendances(attendances) {
-      return attendances.map(function (attendance) {
+      var _this2 = this;
+
+      //const {changeEditMode} = this.props;
+      return attendances.map(function (attendance, index) {
+        var changeEditMode = _this2.props.changeEditMode.bind(_this2.props.parentThis, attendance, index);
         return _react2.default.createElement(
           _reactBootstrap.Col,
           { xs: 6, md: 4 },
@@ -120,12 +124,12 @@ var AttendanceList = (function (_React$Component) {
               null,
               attendance.name
             ),
-            _react2.default.createElement(
+            attendance.isEditable ? _react2.default.createElement(_reactBootstrap.Input, { type: 'text', placeholder: attendance.status }) : _react2.default.createElement(
               'p',
               null,
               attendance.status
             ),
-            _react2.default.createElement(
+            attendance.isEditable ? _react2.default.createElement(_reactBootstrap.Input, { type: 'text', placeholder: attendance.reason }) : _react2.default.createElement(
               'p',
               null,
               attendance.reason
@@ -140,8 +144,9 @@ var AttendanceList = (function (_React$Component) {
               null,
               _react2.default.createElement(
                 _reactBootstrap.Button,
-                { bsStyle: 'default' },
-                'Edit'
+                { bsStyle: 'default',
+                  onClick: changeEditMode },
+                attendance.isEditable ? "Submit" : "Edit"
               )
             )
           )
@@ -360,8 +365,21 @@ var ButtonApiCaller = (function (_React$Component) {
 					{ onClick: this.submitForm },
 					'submit'
 				),
-				_react2.default.createElement(_AttendanceList2.default, { attendances: this.state.attendances, isLoading: this.state.isLoading })
+				_react2.default.createElement(_AttendanceList2.default, {
+					attendances: this.state.attendances,
+					isLoading: this.state.isLoading,
+					changeEditMode: this.changeEditMode,
+					parentThis: this })
 			);
+		}
+	}, {
+		key: 'changeEditMode',
+		value: function changeEditMode(attendance, index) {
+			console.log(JSON.stringify(attendance));
+
+			var tmpAttendances = this.state.attendances;
+			tmpAttendances[index].isEditable = !tmpAttendances[index].isEditable;
+			this.setState({ attendances: tmpAttendances });
 		}
 	}, {
 		key: 'componentDidMount',
