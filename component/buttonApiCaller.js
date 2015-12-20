@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import {Input, Button} from 'react-bootstrap'
 import _ from 'underscore'
 import $ from 'jquery'
+import AttendanceList from './AttendanceList'
 
 export default class ButtonApiCaller extends React.Component {
 	constructor(props) {
@@ -11,10 +12,15 @@ export default class ButtonApiCaller extends React.Component {
 		this.state = {
 			defaultStatusIndex: "0",
 			isDisabledReason: true,
-			reasons: [{name: "Chose Reason"}]
+			reasons: [{name: "Chose Reason"}],
+			attendances: [
+				{name: "hoge"}
+			]
 		}
 		this.setReasons = this.setReasons.bind(this);
 		this.submitForm = this.submitForm.bind(this);
+		this.setAttendanceList = this.setAttendanceList.bind(this);
+		this.componentDidMount = this.componentDidMount.bind(this);
 	}
 	render() {
 		let statuses = this.props.statuses;
@@ -39,8 +45,29 @@ export default class ButtonApiCaller extends React.Component {
 			      {this.renderOptions(this.state.reasons)}
 			    </Input>
 			    <Button onClick={this.submitForm}>submit</Button>
+
+			    <AttendanceList attendances={this.state.attendances} />
 			</form>
 		);
+	}
+	componentDidMount() {
+		// componentWillMount does not work due to $.ajax
+		this.setAttendanceList();
+	}
+	setAttendanceList() {
+		$.ajax({
+			headers: { 
+	        	'Accept': 'application/json',
+	        	'Content-Type': 'application/json' 
+    		},
+			type: 'GET',
+			url: 'http://localhost:8080/tam2/attendance',
+			dataType: 'jsonp',
+			success: res => {
+				console.log(JSON.stringify(res));
+				this.setState({attendances: res});
+			}
+		});
 	}
 	renderOptions(optionElements) {
 		return optionElements.map(optionElement => {
@@ -83,6 +110,7 @@ export default class ButtonApiCaller extends React.Component {
 			}),
 			success: res => {
 				console.log(JSON.stringify(res));
+				this.setState({attendances: res});
 			}
 		});
 	}
