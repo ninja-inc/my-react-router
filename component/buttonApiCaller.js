@@ -15,7 +15,8 @@ export default class ButtonApiCaller extends React.Component {
 			reasons: [{name: "Chose Reason"}],
 			attendances: [
 				{name: "hoge"}
-			]
+			],
+			isLoading: false
 		}
 		this.setReasons = this.setReasons.bind(this);
 		this.submitForm = this.submitForm.bind(this);
@@ -46,7 +47,7 @@ export default class ButtonApiCaller extends React.Component {
 			    </Input>
 			    <Button onClick={this.submitForm}>submit</Button>
 
-			    <AttendanceList attendances={this.state.attendances} />
+			    <AttendanceList attendances={this.state.attendances} isLoading={this.state.isLoading} />
 			</form>
 		);
 	}
@@ -55,6 +56,7 @@ export default class ButtonApiCaller extends React.Component {
 		this.setAttendanceList();
 	}
 	setAttendanceList() {
+		this.setState({isLoading: true});
 		$.ajax({
 			headers: { 
 	        	'Accept': 'application/json',
@@ -66,6 +68,7 @@ export default class ButtonApiCaller extends React.Component {
 			success: res => {
 				console.log(JSON.stringify(res));
 				this.setState({attendances: res});
+				this.setState({isLoading: false});
 			}
 		});
 	}
@@ -95,6 +98,7 @@ export default class ButtonApiCaller extends React.Component {
 		console.log(selectedStatusName);
 		console.log(selectedReasonName);
 
+		this.setState({isLoading: true});
 		$.ajax({
 			headers: { 
 	        	'Accept': 'application/json',
@@ -111,6 +115,7 @@ export default class ButtonApiCaller extends React.Component {
 			success: res => {
 				console.log(JSON.stringify(res));
 				this.setState({attendances: res});
+				this.setState({isLoading: false});
 			}
 		});
 	}

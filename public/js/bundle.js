@@ -93,15 +93,16 @@ var AttendanceList = (function (_React$Component) {
     key: 'render',
     value: function render() {
       var attendances = this.props.attendances;
-
+      var parent = { position: "relative" };
       return _react2.default.createElement(
         _reactBootstrap.Grid,
-        null,
+        { style: parent },
         _react2.default.createElement(
           _reactBootstrap.Row,
           null,
           this.renderAttendances(attendances)
-        )
+        ),
+        this.renderLoadingNow(this.props.isLoading)
       );
     }
   }, {
@@ -146,6 +147,40 @@ var AttendanceList = (function (_React$Component) {
           )
         );
       });
+    }
+  }, {
+    key: 'renderLoadingNow',
+    value: function renderLoadingNow(isLoading) {
+      var backgroundStyle = {
+        zIndex: '1500',
+        position: 'absolute',
+        background: '#000000',
+        filter: 'alpha(opacity=0)',
+        display: 'block',
+        opacity: 0.8,
+        top: '0%',
+        right: '0%',
+        bottom: '0%',
+        left: '0%'
+      };
+      var loadingImgStyle = {
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        right: '0',
+        bottom: '0',
+        margin: 'auto'
+      };
+
+      if (isLoading) {
+        return _react2.default.createElement(
+          'div',
+          { style: backgroundStyle },
+          _react2.default.createElement('img', { border: '0', src: 'loading.gif', style: loadingImgStyle })
+        );
+      } else {
+        return _react2.default.createElement('div', null);
+      }
     }
   }]);
 
@@ -277,7 +312,8 @@ var ButtonApiCaller = (function (_React$Component) {
 			defaultStatusIndex: "0",
 			isDisabledReason: true,
 			reasons: [{ name: "Chose Reason" }],
-			attendances: [{ name: "hoge" }]
+			attendances: [{ name: "hoge" }],
+			isLoading: false
 		};
 		_this.setReasons = _this.setReasons.bind(_this);
 		_this.submitForm = _this.submitForm.bind(_this);
@@ -324,7 +360,7 @@ var ButtonApiCaller = (function (_React$Component) {
 					{ onClick: this.submitForm },
 					'submit'
 				),
-				_react2.default.createElement(_AttendanceList2.default, { attendances: this.state.attendances })
+				_react2.default.createElement(_AttendanceList2.default, { attendances: this.state.attendances, isLoading: this.state.isLoading })
 			);
 		}
 	}, {
@@ -338,6 +374,7 @@ var ButtonApiCaller = (function (_React$Component) {
 		value: function setAttendanceList() {
 			var _this2 = this;
 
+			this.setState({ isLoading: true });
 			_jquery2.default.ajax({
 				headers: {
 					'Accept': 'application/json',
@@ -349,6 +386,7 @@ var ButtonApiCaller = (function (_React$Component) {
 				success: function success(res) {
 					console.log(JSON.stringify(res));
 					_this2.setState({ attendances: res });
+					_this2.setState({ isLoading: false });
 				}
 			});
 		}
@@ -388,6 +426,7 @@ var ButtonApiCaller = (function (_React$Component) {
 			console.log(selectedStatusName);
 			console.log(selectedReasonName);
 
+			this.setState({ isLoading: true });
 			_jquery2.default.ajax({
 				headers: {
 					'Accept': 'application/json',
@@ -404,6 +443,7 @@ var ButtonApiCaller = (function (_React$Component) {
 				success: function success(res) {
 					console.log(JSON.stringify(res));
 					_this3.setState({ attendances: res });
+					_this3.setState({ isLoading: false });
 				}
 			});
 		}
