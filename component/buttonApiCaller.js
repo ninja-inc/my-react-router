@@ -9,33 +9,34 @@ export default class ButtonApiCaller extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			defaultLargeIndex: "0",
-			isDisabledMiddle: true,
-			middleOptions: [{name: "chose above"}]
+			defaultStatusIndex: "0",
+			isDisabledReason: true,
+			reasons: [{name: "Chose Reason"}]
 		}
-		this.setMiddleOptions = this.setMiddleOptions.bind(this);
+		this.setReasons = this.setReasons.bind(this);
 		this.submitForm = this.submitForm.bind(this);
 	}
 	render() {
-		let optionItems = this.props.optionItems;
+		let statuses = this.props.statuses;
 
 		return (
 			<form>
+				<Input type="text" label="Name" placeholder="Enter Your Name" />
 			    <Input type="select"
-			    	label="SelectLarge"
-			    	ref="SelectLarge"
+			    	label="Status"
+			    	ref="SelectStatus"
 			    	placeholder="select"
-			    	onChange={this.setMiddleOptions}
-			    	value={this.state.defaultLargeIndex}>
-			    	  <option value="0" disabled>chose one</option>
-			    	  {this.renderOptions(optionItems)}
+			    	onChange={this.setReasons}
+			    	value={this.state.defaultStatusIndex}>
+			    	  <option value="0" disabled>Chose Status</option>
+			    	  {this.renderOptions(statuses)}
 			    </Input>
 			    <Input type="select"
-			    	label="SelectMiddle"
-			    	ref="SelectMiddle"
+			    	label="Reason"
+			    	ref="SelectReason"
 			    	placeholder="select"
-			    	disabled={this.state.isDisabledMiddle}>
-			      {this.renderOptions(this.state.middleOptions)}
+			    	disabled={this.state.isDisabledReason}>
+			      {this.renderOptions(this.state.reasons)}
 			    </Input>
 			    <Button onClick={this.submitForm}>submit</Button>
 			</form>
@@ -53,55 +54,65 @@ export default class ButtonApiCaller extends React.Component {
 	submitForm(value) {
 		console.log(value)
 		console.log(value.target.form.elements[0].options);
-		let hoge1 = _.find(value.target.form.elements[0].options, optionItem => optionItem.selected).value;
+
+		let inputedName = value.target.form.elements[0].value;
+		let selectedStatusName = _.find(value.target.form.elements[1].options, optionItem => optionItem.selected).value;
 		//let hoge1 = _.chain(value.target.form.elements[0].options)
 		//							.filter(e => e.selected)
 		//							.map(e => e.value)
 		//							.value();
-		//let hoge1 = this.refs.SelectLarge.props.value[0];
-		let hoge2 = _.find(value.target.form.elements[1].options, optionItem => optionItem.selected).value;
+		//let hoge1 = this.refs.SelectStatus.props.value[0];
+		let selectedReasonName = _.find(value.target.form.elements[2].options, optionItem => optionItem.selected).value;
 
-		console.log(hoge1);
-		console.log(hoge2);
+		console.log(inputedName);
+		console.log(selectedStatusName);
+		console.log(selectedReasonName);
 
 		$.ajax({
-			url: "http://localhost:8080/tam2/attendance",
-			dataType: 'jsonp',
-			type: "GET",
+			headers: { 
+	        	'Accept': 'application/json',
+	        	'Content-Type': 'application/json' 
+    		},
+			type: 'POST',
+			url: 'http://localhost:8080/tam2/attendance',
+			dataType: 'json',
+			data: JSON.stringify({
+				name: inputedName,
+				status: selectedStatusName,
+				reason: selectedReasonName
+			}),
 			success: res => {
 				console.log(JSON.stringify(res));
 			}
 		});
 	}
-	setMiddleOptions(e) {
+	setReasons(e) {
 		//console.log(e.target.options.length);
 		//let selectedValueName = _.chain(e.target.options)
 		//							.filter(e => e.selected)
 		//							.map(e => e.value)
 		//							.value();
-		let selectedValueName = _.find(e.target.options, optionItem => optionItem.selected).value;
-		//console.log(selectedValueName);
-		let middleOptions = _.find(this.props.optionItems, optionItem => optionItem.name == selectedValueName);
-		//console.log(middleOptions);
-		//console.log(middleOptions.middleNames);
-		this.setState({middleOptions: middleOptions.middleNames});
-		this.setState({isDisabledMiddle: false, defaultLargeIndex: selectedValueName});
+		let selectedStatusName = _.find(e.target.options, optionItem => optionItem.selected).value;
+		let reasons = _.find(this.props.statuses, optionItem => optionItem.name == selectedStatusName);
+
+		this.setState({reasons: reasons.reasons});
+		this.setState({isDisabledReason: false, defaultStatusIndex: selectedStatusName});
 	}
 }
 ButtonApiCaller.defaultProps = {
-	optionItems: [
+	statuses: [
 		{
-			name: "A",
-			middleNames: [
-				{name: "a"},
-				{name: "b"}
+			name: "Late Arrival",
+			reasons: [
+				{name: "Bad Health"},
+				{name: "Train Delay"}
 			]
 		},
 		{
-			name: "B",
-			middleNames: [
-				{name: "c"},
-				{name: "d"}
+			name: "Business Trip",
+			reasons: [
+				{name: "Outside Training"},
+				{name: "Maintenance"}
 			]
 		}
 	]

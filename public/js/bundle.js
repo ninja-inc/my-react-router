@@ -167,11 +167,11 @@ var ButtonApiCaller = (function (_React$Component) {
 		var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ButtonApiCaller).call(this, props));
 
 		_this.state = {
-			defaultLargeIndex: "0",
-			isDisabledMiddle: true,
-			middleOptions: [{ name: "chose above" }]
+			defaultStatusIndex: "0",
+			isDisabledReason: true,
+			reasons: [{ name: "Chose Reason" }]
 		};
-		_this.setMiddleOptions = _this.setMiddleOptions.bind(_this);
+		_this.setReasons = _this.setReasons.bind(_this);
 		_this.submitForm = _this.submitForm.bind(_this);
 		return _this;
 	}
@@ -179,34 +179,35 @@ var ButtonApiCaller = (function (_React$Component) {
 	_createClass(ButtonApiCaller, [{
 		key: 'render',
 		value: function render() {
-			var optionItems = this.props.optionItems;
+			var statuses = this.props.statuses;
 
 			return _react2.default.createElement(
 				'form',
 				null,
+				_react2.default.createElement(_reactBootstrap.Input, { type: 'text', label: 'Name', placeholder: 'Enter Your Name' }),
 				_react2.default.createElement(
 					_reactBootstrap.Input,
 					{ type: 'select',
-						label: 'SelectLarge',
-						ref: 'SelectLarge',
+						label: 'Status',
+						ref: 'SelectStatus',
 						placeholder: 'select',
-						onChange: this.setMiddleOptions,
-						value: this.state.defaultLargeIndex },
+						onChange: this.setReasons,
+						value: this.state.defaultStatusIndex },
 					_react2.default.createElement(
 						'option',
 						{ value: '0', disabled: true },
-						'chose one'
+						'Chose Status'
 					),
-					this.renderOptions(optionItems)
+					this.renderOptions(statuses)
 				),
 				_react2.default.createElement(
 					_reactBootstrap.Input,
 					{ type: 'select',
-						label: 'SelectMiddle',
-						ref: 'SelectMiddle',
+						label: 'Reason',
+						ref: 'SelectReason',
 						placeholder: 'select',
-						disabled: this.state.isDisabledMiddle },
-					this.renderOptions(this.state.middleOptions)
+						disabled: this.state.isDisabledReason },
+					this.renderOptions(this.state.reasons)
 				),
 				_react2.default.createElement(
 					_reactBootstrap.Button,
@@ -231,49 +232,59 @@ var ButtonApiCaller = (function (_React$Component) {
 		value: function submitForm(value) {
 			console.log(value);
 			console.log(value.target.form.elements[0].options);
-			var hoge1 = _underscore2.default.find(value.target.form.elements[0].options, function (optionItem) {
+
+			var inputedName = value.target.form.elements[0].value;
+			var selectedStatusName = _underscore2.default.find(value.target.form.elements[1].options, function (optionItem) {
 				return optionItem.selected;
 			}).value;
 			//let hoge1 = _.chain(value.target.form.elements[0].options)
 			//							.filter(e => e.selected)
 			//							.map(e => e.value)
 			//							.value();
-			//let hoge1 = this.refs.SelectLarge.props.value[0];
-			var hoge2 = _underscore2.default.find(value.target.form.elements[1].options, function (optionItem) {
+			//let hoge1 = this.refs.SelectStatus.props.value[0];
+			var selectedReasonName = _underscore2.default.find(value.target.form.elements[2].options, function (optionItem) {
 				return optionItem.selected;
 			}).value;
 
-			console.log(hoge1);
-			console.log(hoge2);
+			console.log(inputedName);
+			console.log(selectedStatusName);
+			console.log(selectedReasonName);
 
 			_jquery2.default.ajax({
-				url: "http://localhost:8080/tam2/attendance",
-				dataType: 'jsonp',
-				type: "GET",
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				},
+				type: 'POST',
+				url: 'http://localhost:8080/tam2/attendance',
+				dataType: 'json',
+				data: JSON.stringify({
+					name: inputedName,
+					status: selectedStatusName,
+					reason: selectedReasonName
+				}),
 				success: function success(res) {
 					console.log(JSON.stringify(res));
 				}
 			});
 		}
 	}, {
-		key: 'setMiddleOptions',
-		value: function setMiddleOptions(e) {
+		key: 'setReasons',
+		value: function setReasons(e) {
 			//console.log(e.target.options.length);
 			//let selectedValueName = _.chain(e.target.options)
 			//							.filter(e => e.selected)
 			//							.map(e => e.value)
 			//							.value();
-			var selectedValueName = _underscore2.default.find(e.target.options, function (optionItem) {
+			var selectedStatusName = _underscore2.default.find(e.target.options, function (optionItem) {
 				return optionItem.selected;
 			}).value;
-			//console.log(selectedValueName);
-			var middleOptions = _underscore2.default.find(this.props.optionItems, function (optionItem) {
-				return optionItem.name == selectedValueName;
+			var reasons = _underscore2.default.find(this.props.statuses, function (optionItem) {
+				return optionItem.name == selectedStatusName;
 			});
-			//console.log(middleOptions);
-			//console.log(middleOptions.middleNames);
-			this.setState({ middleOptions: middleOptions.middleNames });
-			this.setState({ isDisabledMiddle: false, defaultLargeIndex: selectedValueName });
+
+			this.setState({ reasons: reasons.reasons });
+			this.setState({ isDisabledReason: false, defaultStatusIndex: selectedStatusName });
 		}
 	}]);
 
@@ -283,12 +294,12 @@ var ButtonApiCaller = (function (_React$Component) {
 exports.default = ButtonApiCaller;
 
 ButtonApiCaller.defaultProps = {
-	optionItems: [{
-		name: "A",
-		middleNames: [{ name: "a" }, { name: "b" }]
+	statuses: [{
+		name: "Late Arrival",
+		reasons: [{ name: "Bad Health" }, { name: "Train Delay" }]
 	}, {
-		name: "B",
-		middleNames: [{ name: "c" }, { name: "d" }]
+		name: "Business Trip",
+		reasons: [{ name: "Outside Training" }, { name: "Maintenance" }]
 	}]
 };
 
