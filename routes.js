@@ -8,6 +8,7 @@ var React = require('react'),
 
 import DividerThumbnail from './component/dividerThumbnail'
 import ButtonApiCaller from './component/buttonApiCaller'
+import TamTam from './component/tamTam'
 
 
 module.exports = function() {
@@ -18,6 +19,7 @@ module.exports = function() {
         <Route path="users" component={Users} />
         <Route path="dviderThumbnail" component={DividerThumbnail} />
         <Route path="buttonApiCaller" component={ButtonApiCaller} />
+        <Route path="tamTam" component={TamTam} />
       </Route>
   );
 };

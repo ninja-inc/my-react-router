@@ -17,6 +17,7 @@ var initialData = JSON.parse(document.getElementById('initial-data').getAttribut
 
 import DividerThumbnail from './component/dividerThumbnail'
 import ButtonApiCaller from './component/buttonApiCaller'
+import TamTam from './component/tamTam'
 
 //ReactDOM.render(<Router history={createHistory()}>{routes}</Router>, document.getElementById("app"));
 //ReactDOM.render(<Router routes={routes}/>, document.getElementById("app"));
@@ -28,6 +29,7 @@ ReactDOM.render(
         	<Route path="users" component={Users} />
             <Route path="dviderThumbnail" component={DividerThumbnail} />
             <Route path="buttonApiCaller" component={ButtonApiCaller} />
+            <Route path="tamTam" component={TamTam} />
       	</Route>
     </Router>
 , document.getElementById("app"));

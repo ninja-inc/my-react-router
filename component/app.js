@@ -13,6 +13,7 @@ var App = React.createClass({
         <li><Link to="/users">users</Link></li>
         <li><Link to="/dviderThumbnail">dviderThumbnail</Link></li>
         <li><Link to="/buttonApiCaller">buttonApiCaller</Link></li>
+        <li><Link to="/tamTam">TamTam</Link></li>
         {this.props.children}
       </div>
     );
